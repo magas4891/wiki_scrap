@@ -16,6 +16,6 @@ class WikiController < ApplicationController
   def valid_wiki_page?(url)
     parsed_url = URI.parse(url)
 
-    parsed_url.class.to_s.eql?('URI::HTTPS') && parsed_url.host.include?('wikipedia')
+    parsed_url.class.to_s.eql?('URI::HTTPS') && parsed_url.host.include?('.wikipedia.')
   end
 end
