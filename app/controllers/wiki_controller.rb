@@ -2,7 +2,7 @@
 
 class WikiController < ApplicationController
   def index
-    if params[:query] && wiki_url_validation(params[:query])
+    if params[:query] && valid_wiki_page?(params[:query])
       data       = Wiki::Scrap.perform(params[:query])
       @title     = data[:title]
       @languages = data[:languages]
@@ -13,7 +13,7 @@ class WikiController < ApplicationController
 
   private
 
-  def wiki_url_validation(url)
+  def valid_wiki_page?(url)
     parsed_url = URI.parse(url)
 
     parsed_url.class.to_s.eql?('URI::HTTPS') && parsed_url.host.include?('wikipedia')

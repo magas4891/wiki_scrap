@@ -13,12 +13,13 @@ module Wiki
     end
 
     def call
-      response = HTTParty.get(params)
-      body = response.body
-      doc = Nokogiri::HTML(body)
-      title = doc.css('h1#firstHeading').text.strip
-      languages = doc.css('.interlanguage-link a').map { |link| link.children.text }
+      response        = HTTParty.get(params)
+      body            = response.body
+      doc             = Nokogiri::HTML(body)
+      title           = doc.css('h1#firstHeading').text.strip
+      languages       = doc.css('.interlanguage-link a').map { |link| link.children.text }
       clean_languages = languages.join(', ')
+
       {
         title: title,
         languages: clean_languages
